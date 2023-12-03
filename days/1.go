@@ -15,7 +15,7 @@ func Run1() {
 		count += findNumbers(input)
 	}
 
-	fmt.Println(count)
+	fmt.Println("day 1 task 1: ", count)
 }
 
 func convertInputToSlice() []string {

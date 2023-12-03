@@ -7,26 +7,34 @@ import (
 	"strings"
 )
 
+type colour struct {
+	Red   int
+	Green int
+	Blue  int
+}
+
 func Run2() {
 	games := convertInputToSlices()
 
 	gameIdCount := 0
+	task2Count := 0
 
 	for i, game := range games {
-		if !overMaxAllowanceCheck(game) {
+		mappedBalls := mapBalls(game, i+1)
+		if !checkAllowances(mappedBalls) {
 			gameIdCount += i + 1
 		}
+		highestMap := getHighestOfEach(mappedBalls)
+		task2Count += sumUp(highestMap)
 	}
 
-	fmt.Println(gameIdCount)
+	fmt.Println("day 2 task 1: ", gameIdCount)
+	fmt.Println("day 2 task 2: ", task2Count)
 
 }
 
 func convertInputToSlices() []string {
-	inputBytes, err := os.ReadFile("days/data/adventofcode.com_2023_day_2_input.txt")
-	if err != nil {
-		fmt.Println("could not read file")
-	}
+	inputBytes, _ := os.ReadFile("days/data/adventofcode.com_2023_day_2_input.txt")
 
 	var games []string
 
@@ -45,39 +53,87 @@ func convertInputToSlices() []string {
 	return games
 }
 
-func overMaxAllowanceCheck(game string) bool {
+func mapBalls(game string, index int) []colour {
 	subsets := strings.Split(game, ";")
-	mappedBalls := map[int]string{}
+	colours := []colour{}
 
 	for _, sub := range subsets {
 		new := strings.Split(sub, ",")
-
 		for _, tomap := range new {
 			splitdown := strings.Split(strings.Trim(tomap, " "), " ")
-			key, err := strconv.Atoi(splitdown[0])
+			ballsOfColour, err := strconv.Atoi(splitdown[0])
 			if err != nil {
 				fmt.Println(err)
 			}
-			mappedBalls[key] = splitdown[1]
+			colour := colour{}
+			switch splitdown[1] {
+			case "red":
+				colour.Red = ballsOfColour
+			case "green":
+				colour.Green = ballsOfColour
+			case "blue":
+				colour.Blue = ballsOfColour
+			}
+			colours = append(colours, colour)
 		}
 	}
 
-	for k, v := range mappedBalls {
-		switch v {
-		case "red":
-			if k > 12 {
-				return true
-			}
-		case "green":
-			if k > 13 {
-				return true
-			}
-		case "blue":
-			if k > 14 {
-				return true
-			}
+	return colours
+}
+
+func checkAllowances(mappedBalls []colour) bool {
+	for _, colour := range mappedBalls {
+		if colour.Red > 12 {
+			return true
+		}
+		if colour.Green > 13 {
+			return true
+		}
+		if colour.Blue > 14 {
+			return true
 		}
 	}
 
 	return false
+}
+
+func getHighestOfEach(mappedBalls []colour) map[string]int {
+	highestRed := 0
+	highestBlue := 0
+	highestGreen := 0
+
+	for _, colour := range mappedBalls {
+		if colour.Red > highestRed {
+			highestRed = colour.Red
+		}
+		if colour.Green > highestGreen {
+			highestGreen = colour.Green
+		}
+		if colour.Blue > highestBlue {
+			highestBlue = colour.Blue
+		}
+	}
+
+	newMap := map[string]int{
+		"red":   highestRed,
+		"green": highestGreen,
+		"blue":  highestBlue,
+	}
+
+	for key, value := range newMap {
+		if value == 0 {
+			delete(newMap, key)
+		}
+	}
+
+	return newMap
+}
+
+func sumUp(mappedBalls map[string]int) int {
+	value := 1
+	for _, v := range mappedBalls {
+		value = v * value
+	}
+
+	return value
 }
