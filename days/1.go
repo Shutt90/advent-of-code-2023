@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func Run() {
+func Run1() {
 	inputs := convertInputToSlice()
 
 	count := 0

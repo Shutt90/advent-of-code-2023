@@ -5,5 +5,6 @@ import (
 )
 
 func main() {
-	days.Run()
+	days.Run1()
+	days.Run2()
 }
