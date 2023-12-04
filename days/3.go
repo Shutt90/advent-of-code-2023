@@ -1,7 +1,6 @@
 package days
 
 import (
-	"fmt"
 	"os"
 	"strings"
 	"unicode"
@@ -19,11 +18,11 @@ func Run3() {
 		digitPositions = append(digitPositions, getDigitPositions(line))
 	}
 
-	for i, symPos := range symbolPositions {
-		if digitPosition[i] == symbolPosition[i] ||  digitPosition[i] == symbolPosition[i+1]  ||  digitPosition[i] == symbolPosition[i-1] {
-			// this should confirm that a digit is 		
-		}}
-	}
+	// for i, symPos := range symbolPositions {
+	// 	if digitPosition[i] == symbolPosition[i] || digitPosition[i] == symbolPosition[i+1] || digitPosition[i] == symbolPosition[i-1] {
+	// 		// this should confirm that a digit is
+	// 	}
+	// }
 }
 
 func readInput() []string {
