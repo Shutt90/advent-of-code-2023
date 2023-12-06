@@ -8,4 +8,5 @@ func main() {
 	days.Run1()
 	days.Run2()
 	days.Run3()
+	days.Run4()
 }

@@ -14,7 +14,7 @@ type colour struct {
 }
 
 func Run2() {
-	games := convertInputToSlices()
+	games := convertInputToSlices(2)
 
 	gameIdCount := 0
 	task2Count := 0
@@ -33,8 +33,8 @@ func Run2() {
 
 }
 
-func convertInputToSlices() []string {
-	inputBytes, _ := os.ReadFile("days/data/adventofcode.com_2023_day_2_input.txt")
+func convertInputToSlices(day int) []string {
+	inputBytes, _ := os.ReadFile(fmt.Sprintf("days/data/adventofcode.com_2023_day_%d_input.txt", day))
 
 	var games []string
 
