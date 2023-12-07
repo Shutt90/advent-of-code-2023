@@ -43,11 +43,9 @@ func Run4() {
 	count := 0
 
 	for _, r := range rounds {
-		fmt.Println(r)
 		count += r
 	}
 
-	fmt.Println(count)
 }
 
 func splitLines(line string) card {

@@ -9,4 +9,5 @@ func main() {
 	days.Run2()
 	days.Run3()
 	days.Run4()
+	days.Run7()
 }
